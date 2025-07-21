@@ -310,10 +310,13 @@ function AssessmentsDetails() {
   const handleAssessmentTypeChange = (newType: string) => {
     setAssessmentType(newType);
     const queryParams = { ...router.query };
-    if (newType === 'post') queryParams.assessmentType = 'post';
-    if (newType === 'other') queryParams.assessmentType = 'other';
-    else delete queryParams.assessmentType;
-
+    if (newType === 'post') {
+      queryParams.assessmentType = 'post';
+    } else if (newType === 'other') {
+      queryParams.assessmentType = 'other';
+    } else {
+      delete queryParams.assessmentType;
+    }
     router.push({ pathname: router.pathname, query: queryParams }, undefined, {
       shallow: true,
     });
@@ -323,9 +326,9 @@ function AssessmentsDetails() {
     setAssessmentType(
       router.query.assessmentType === 'post'
         ? 'post'
-        : router.query.assessmentType === 'pre'
-        ? 'pre'
-        : 'other'
+        : router.query.assessmentType === 'other'
+        ? 'other'
+        : 'pre'
     );
   }, [router.query.type]);
 
