@@ -500,6 +500,10 @@ const Mentor = () => {
   const notificationKey = 'onMentorCreate';
   const notificationMessage = 'MENTORS.USER_CREDENTIALS_WILL_BE_SEND_SOON';
   const notificationContext = 'USER';
+  const stateReassignmentNotificationKey = 'onMentorStateReassign';
+  const districtReassignmentNotificationKey = 'onMentorDistrictReassign';
+  const blockReassignmentNotificationKey = 'onMentorBlockReassign';
+  const villageReassignmentNotificationKey = 'onMentorVillageReassign';
 
   const setButtonShow = (status) => {
     console.log('########## changed', status);
@@ -607,9 +611,14 @@ const Mentor = () => {
             sdbvFieldData={originalSchema}
             blockVillageMap={isReassign ? blockVillageMap : {}}
             // isSteeper={true}
-            // blockReassignmentNotificationKey={blockReassignmentNotificationKey}
-            // profileUpdateNotificationKey={profileUpdateNotificationKey}
-            // centerUpdateNotificationKey={centerUpdateNotificationKey}
+            stateReassignmentNotificationKey={stateReassignmentNotificationKey}
+            districtReassignmentNotificationKey={
+              districtReassignmentNotificationKey
+            }
+            blockReassignmentNotificationKey={blockReassignmentNotificationKey}
+            villageReassignmentNotificationKey={
+              villageReassignmentNotificationKey
+            }
           />
         </SimpleModal>
 

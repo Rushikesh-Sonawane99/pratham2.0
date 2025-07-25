@@ -21,12 +21,11 @@ import { createUser, updateUser } from '@/services/CreateUserService';
 import {
   getReassignPayload,
   getUserFullName,
-  isCenterDifferent,
-  toPascalCase,
-  isDistrictDifferent,
-  isVillageDifferent,
+  isBlockDifferent,
   isBlockSetDifferent,
-  isStateDifferent,
+  isCenterDifferent,
+  isVillageDifferent,
+  toPascalCase,
 } from '@/utils/Helper';
 import { sendCredentialService } from '@/services/NotificationService';
 import { showToastMessage } from '@/components/Toastify';
@@ -71,8 +70,6 @@ const MentorForm = ({
   telemetryCreateKey,
   sdbvFieldData,
   blockVillageMap,
-  stateReassignmentNotificationKey,
-  districtReassignmentNotificationKey,
   blockReassignmentNotificationKey,
   villageReassignmentNotificationKey,
 }) => {
@@ -141,7 +138,7 @@ const MentorForm = ({
           isEditUiSchema.firstName['ui:widget'] = 'hidden';
         }
 
-        if (userRole === Role.TEACHER || userRole === Role.TEAM_LEADER) {
+        if (userRole === Role.ADMIN) {
           if (isEditUiSchema?.district) {
             isEditUiSchema.district['ui:disabled'] = true;
           }
@@ -495,20 +492,7 @@ const MentorForm = ({
         customFields
       );
       const payload = { customFields: customFields };
-      // console.log('original***', originalPrefilledFormData);
-      // console.log('original', districtId);
 
-      // Check for state change
-      const toSendStateChangeNotification = isStateDifferent(
-        originalPrefilledFormData,
-        { state: stateId }
-      );
-
-      // Check for district change
-      const toSendDistrictChangeNotification = isDistrictDifferent(
-        originalPrefilledFormData,
-        { district: districtId }
-      );
       // Check for block change (using blockVillageMap and selectedVillages)
       const toSendBlockChangeNotification = isBlockSetDifferent(
         blockVillageMap,
@@ -534,24 +518,6 @@ const MentorForm = ({
         );
         if (resp) {
           showToastMessage(t(successUpdateMessage), 'success');
-          // Send notification if state is changed
-          if (
-            toSendStateChangeNotification &&
-            typeof stateReassignmentNotificationKey !== 'undefined'
-          ) {
-            getNotification(editableUserId, stateReassignmentNotificationKey);
-          }
-          // Send notification if district is changed
-          if (
-            toSendDistrictChangeNotification &&
-            typeof districtReassignmentNotificationKey !== 'undefined'
-          ) {
-            getNotification(
-              editableUserId,
-              districtReassignmentNotificationKey
-            );
-          }
-
           // Send notification if block is changed
           if (
             toSendBlockChangeNotification &&
@@ -567,7 +533,6 @@ const MentorForm = ({
           ) {
             getNotification(editableUserId, villageReassignmentNotificationKey);
           }
-
           telemetryCallbacks(telemetryUpdateKey);
           UpdateSuccessCallback();
         } else {
