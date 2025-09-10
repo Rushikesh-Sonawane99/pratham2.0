@@ -1,0 +1,9 @@
+{
+  "name": "fields-form-builder",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "mfes/fields-form-builder",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project login --web",
+  "targets": {}
+}

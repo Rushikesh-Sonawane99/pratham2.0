@@ -18,6 +18,11 @@ export function middleware(request: { nextUrl: { clone: () => any } }) {
     url.port = '4105';
     return NextResponse.rewrite(url);
   }
+  if (url.pathname.startsWith('/fields-form-builder')) {
+    url.hostname = 'localhost';
+    url.port = '4115';
+    return NextResponse.rewrite(url);
+  }
 
   return NextResponse.next();
 }

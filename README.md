@@ -184,6 +184,17 @@ nx dev taxonomy-manager --port=4114 --verbose
 basePath : `http://localhost:4114/taxonomy-manager/`
 Port : `4114`
 
+### fields-form-builder
+
+Next JS, run:
+
+```sh
+nx dev fields-form-builder --port=4115 --verbose
+```
+
+basePath : `http://localhost:4115/fields-form-builder/`
+Port : `4115`
+
 ##
 
 ## NX Command
